@@ -139,6 +139,7 @@ class RegularExpresionsTests {
 		//checking false hyphens 
 		
 		assertFalse("+972599999999".matches(regex));
+		assertFalse("+9-7-2599999999".matches(regex));
 		assertFalse("+97-2599999999".matches(regex));
 		assertFalse("+9725-99999999".matches(regex));
 		assertFalse("+972599999-999".matches(regex));
@@ -146,6 +147,7 @@ class RegularExpresionsTests {
 		assertFalse("+972-59-999-99-99".matches(regex));
 		assertFalse("0599999999".matches(regex));
 		assertFalse("05-99999999".matches(regex));
+		assertFalse("0-5-99999999".matches(regex));
 		assertFalse("059-999-99-99".matches(regex));
 		
 		
