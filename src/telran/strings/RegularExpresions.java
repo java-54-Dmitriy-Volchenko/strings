@@ -28,41 +28,38 @@ public class RegularExpresions {
 		return String.format("%1$s(\\.%1$s){3}", ipOctetExpr);
 	}
 	public static String simpleArithmeticExpression() {
-		
-		//operations only binary +,-,*,/ 
+		//operations only binary +,-,*,/
 		//operands only integer numbers
-		//no brackets
+		//no brackets 
 		String operand = integerNumberExp();
+		return commonArithmeticExpression(operand);
+	}
+	private static String commonArithmeticExpression(String operand) {
 		String operation = operationExp();
 		return String.format("%1$s(%2$s%1$s)*", operand, operation);
 	}
-	
-	public static String integerNumberExp() {
-		return "(\\s*\\d+\\s*)";//пробелы перед и после в любом количестве, между ними как минимум одна цифра
-	}
-
-	public static String operationExp() {
+	private static String operationExp() {
+		
 		return "[-+*/]";
 	}
+	private static String integerNumberExp() {
+		
+		return "(\\s*\\d+\\s*)";
+	}
 	public static String arithmeticExpression() {
-		//TODO
-	
 		//operand - any number or Java variable name
 		//operation - the same as for simpleArithmeticExpression
 		//brackets '(' ')' are allowed
-		String operation = operationExp();
-		String operand = numberExpFull();
-		
-		return String.format("%1$s(%2$s%1$s)*", operand, operation);
+		String operand = arithmeticOperandExpression();
+		return commonArithmeticExpression(operand);
 	}
-	
-		public static String numberExpFull() {
-		
-			return //"(\\s*\\(*((\\d+?(\\.\\d+?)?)|([A-Za-z$][\\w$]*|_[\\w$]+?)|_{2})\\)*\\s*)";
-	//              (\\s*\\(* (\\d+ (\\.\\d+) ? |([A-Za-z$][\\w$]*|_[\\w$]+) )      \\)*\\s*)";  
-			         "(\\s*\\(*((\\d+(\\.\\d+)?)|([A-Za-z$][\\w$]*|_[\\w$]+))\\)*\\s*)";
-
-		
+	private static String arithmeticOperandExpression() {
+		String variableExp = javaVariable();
+		String numberExp = anyNumber();
+		return String.format("[\\s(]*(%s|%s)[\\s)]*", variableExp, numberExp);
 	}
-
-}
+	private static String anyNumber() {
+		
+		return "(\\d*\\.?\\d+|d+\\.)";
+	}
+	}
